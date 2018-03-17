@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Highscore: "
+                android:text="@string/highscore"
                 android:textColor="#FFFFFF"/>
 
             <TextView
@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Score: "
+                android:text="@string/score"
                 android:textColor="#FFFFFF"/>
 
             <TextView
@@ -87,7 +87,7 @@
            android:layout_width="0dp"
 
            android:layout_weight="1"
-           android:text="Head"
+           android:text="@string/heads"
            android:background="#ffffcf"
            android:layout_margin="16dp"
 
@@ -97,7 +97,7 @@
             android:onClick="flipCoin"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:text="Tails"
+            android:text="@string/tails"
             android:layout_margin="16dp"
             android:background="#ffffcf"
             android:layout_height="wrap_content" />

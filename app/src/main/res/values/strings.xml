@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Coin Toss</string>
+    <string name="highscore">Highscore:\u0020</string>
+    <string name="score">Score:\u0020</string>
+    <string name="heads">Heads</string>
+    <string name="tails">Tails</string>
 </resources>

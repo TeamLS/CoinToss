@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Ρίψη νομίσματος</string>
+    <string name="highscore">Ρεκόρ:\u0020</string>
+    <string name="score">Σκορ:\u0020</string>
+    <string name="heads">Κορώνα</string>
+    <string name="tails">Γράμματα</string>
+</resources>
