@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
                     score++;
                     scoreText.setText(String.valueOf(score));
-                    hist.append("T");
+                    hist.append(getResources().getString(R.string.tails_first_letter));
                 }
 
             }
@@ -107,7 +107,8 @@ public class MainActivity extends AppCompatActivity {
 
                     score++;
                     scoreText.setText(String.valueOf(score));
-                    hist.append("H");
+                    hist.append(getResources().getString(R.string.heads_first_letter));
+
                 }
             }
 

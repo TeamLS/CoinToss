@@ -4,4 +4,6 @@
     <string name="score">Σκορ:\u0020</string>
     <string name="heads">Κορώνα</string>
     <string name="tails">Γράμματα</string>
+    <string name="heads_first_letter">Κ</string>
+    <string name="tails_first_letter">Γ</string>
 </resources>

@@ -4,4 +4,6 @@
     <string name="score">Score:\u0020</string>
     <string name="heads">Heads</string>
     <string name="tails">Tails</string>
+    <string name="heads_first_letter">H</string>
+    <string name="tails_first_letter">T</string>
 </resources>
