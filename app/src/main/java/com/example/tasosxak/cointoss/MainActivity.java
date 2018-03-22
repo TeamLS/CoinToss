@@ -7,6 +7,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -56,6 +57,19 @@ public class MainActivity extends AppCompatActivity {
         outState.putCharSequence(HIST,hist.getText());
     }
 
+    private void newHighscore(){
+
+
+        highscore = score;
+        highscoreText.setText(String.valueOf(highscore));
+
+        String text = getResources().getString(R.string.new_highscore);
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        toast.show();
+
+
+    }
+
     public void flipCoin(View v){
 
             int id = ((Button) v).getId();
@@ -68,10 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 if( id == R.id.head) {
 
                     if( score > highscore) {
-
-                        highscore = score;
-                        highscoreText.setText(String.valueOf(highscore));
-
+                        newHighscore();
                     }
 
                     score = 0;
@@ -94,9 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 if( id == R.id.tails){
 
                     if( score > highscore) {
-
-                        highscore = score;
-                        highscoreText.setText(String.valueOf(highscore));
+                        newHighscore();
                     }
 
                     score = 0;
