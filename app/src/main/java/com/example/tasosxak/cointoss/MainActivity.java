@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onStop() {
+    public void onPause() {
 
         // Write the new high score to the highScore file
 
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        super.onStop();
+        super.onPause();
 
     }
 
