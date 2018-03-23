@@ -1,20 +1,20 @@
 package com.example.tasosxak.cointoss;
 
+import android.content.Context;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.HashSet;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,17 +26,19 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView coinImage;
     private TextView scoreText;
-    private TextView highscoreText;
+    private TextView highScoreText;
     private TextView hist;
     private Button headsButton;
     private Button tailsButton;
 
-    Random r;
-    int coinSide;
-    int score;
-    int highscore;
+    private Random r;
+    private int coinSide;
+    private int score;
+    private int highScore;
 
-    int curSide = R.drawable.heads;
+    private int curSide = R.drawable.heads;
+
+    private String filename = "highScore";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +47,61 @@ public class MainActivity extends AppCompatActivity {
         r = new Random();
         coinImage = (ImageView) findViewById(R.id.coin);
         scoreText = (TextView) findViewById(R.id.score);
-        highscoreText = (TextView) findViewById(R.id.highScore);
+        highScoreText = (TextView) findViewById(R.id.highScore);
         hist = (TextView) findViewById(R.id.hist);
 
         headsButton = (Button) findViewById(R.id.heads);
         tailsButton = (Button) findViewById(R.id.tails);
 
+
+        try {
+
+            // Try to read from the highScore file
+
+            FileInputStream inputStream = openFileInput(filename);
+            BufferedReader r = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuilder total = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                total.append(line);
+            }
+            r.close();
+            inputStream.close();
+
+            highScore = Integer.parseInt(total.toString());
+            highScoreText.setText(String.valueOf(highScore));
+
+
+        } catch (Exception e) {
+
+            // The highScore file doesn't exist, or doesn't contain an integer, so write a new highScore file that has 0.
+
+            System.err.println(e.toString());
+            highScore = 0;
+
+            try {
+                FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+                outputStream.write("0".getBytes());
+                outputStream.close();
+            } catch (Exception e2) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+
+
+        // Restore all values and images after rotate
+
         if (savedInstanceState != null) {
 
             coinImage.setImageResource(Integer.parseInt(savedInstanceState.getCharSequence(COIN_SIDE).toString()));
-            highscoreText.setText(savedInstanceState.getCharSequence(HIGH_SCORE));
+            highScoreText.setText(savedInstanceState.getCharSequence(HIGH_SCORE));
             scoreText.setText(savedInstanceState.getCharSequence(SCORE));
             hist.setText(savedInstanceState.getCharSequence(HIST));
 
-            highscore = Integer.valueOf(highscoreText.getText().toString());
+            highScore = Integer.valueOf(highScoreText.getText().toString());
             score = Integer.valueOf(scoreText.getText().toString());
         }
 
@@ -68,20 +111,32 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putCharSequence(COIN_SIDE, String.valueOf(curSide));
-        outState.putCharSequence(HIGH_SCORE, highscoreText.getText());
+        outState.putCharSequence(HIGH_SCORE, highScoreText.getText());
         outState.putCharSequence(SCORE, scoreText.getText());
         outState.putCharSequence(HIST, hist.getText());
     }
 
-    private void newHighscore() {
+    private void newHighScore() {
 
 
-        highscore = score;
-        highscoreText.setText(String.valueOf(highscore));
+        highScore = score;
+        highScoreText.setText(String.valueOf(highScore));
+
+        // Show Toast for New High Score
 
         String text = getResources().getString(R.string.new_highscore);
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
         toast.show();
+
+        // Write the new high score to the highScore file
+
+        try {
+            FileOutputStream outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+            outputStream.write(String.valueOf(highScore).getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -106,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
             animation.setRepeatCount(8);
         }
 
-        animation.setDuration(130);
+        animation.setDuration(110);
         animation.setInterpolator(new LinearInterpolator());
 
         coinImage.startAnimation(animation);
@@ -134,17 +189,17 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
 
 
-                    if (buttonId == R.id.heads) {  // User guessed Heads
+                    if (buttonId == R.id.heads) {  // User guessed Heads (WRONG)
 
-                        if (score > highscore) {
-                            newHighscore();
+                        if (score > highScore) {
+                            newHighScore();
                         }
 
                         score = 0;
                         scoreText.setText("0");
                         hist.setText("");
 
-                    } else {  // User guessed Tails
+                    } else {  // User guessed Tails (CORRECT)
 
                         score++;
                         scoreText.setText(String.valueOf(score));
@@ -172,17 +227,17 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
 
 
-                    if (buttonId == R.id.tails) {  // User guessed Tails
+                    if (buttonId == R.id.tails) {  // User guessed Tails (WRONG)
 
-                        if (score > highscore) {
-                            newHighscore();
+                        if (score > highScore) {
+                            newHighScore();
                         }
 
                         score = 0;
                         scoreText.setText("0");
                         hist.setText("");
 
-                    } else {  // User guessed Heads
+                    } else {  // User guessed Heads (CORRECT)
 
                         score++;
                         scoreText.setText(String.valueOf(score));
