@@ -2,59 +2,58 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/background"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="com.example.tasosxak.cointoss.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:orientation="vertical"
         android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/highscore"
-                android:textColor="#FFFFFF"/>
+                android:text="@string/highScore"
+                android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/highscore"
-                android:textColor="#FFFFFF"
+                android:id="@+id/highScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="16sp"
-                />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/score"
-                android:textColor="#FFFFFF"/>
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                />
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -62,9 +61,8 @@
             android:id="@+id/hist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            />
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -73,34 +71,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/head"/>
+        android:src="@drawable/heads" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
 
-       <Button
-           android:id="@+id/head"
-           android:onClick="flipCoin"
-           android:layout_width="0dp"
+        <Button
+            android:id="@+id/heads"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-           android:layout_weight="1"
-           android:text="@string/heads"
-           android:background="#ffffcf"
-           android:layout_margin="16dp"
+            android:layout_margin="16dp"
+            android:layout_weight="1"
+            android:background="@color/lightWhite"
+            android:onClick="flipCoin"
 
-           android:layout_height="wrap_content" />
+            android:text="@string/heads" />
+
         <Button
             android:id="@+id/tails"
-            android:onClick="flipCoin"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:text="@string/tails"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:background="#ffffcf"
-            android:layout_height="wrap_content" />
+            android:layout_weight="1"
+            android:background="@color/lightWhite"
+            android:onClick="flipCoin"
+            android:text="@string/tails" />
     </LinearLayout>
 
 </RelativeLayout>
