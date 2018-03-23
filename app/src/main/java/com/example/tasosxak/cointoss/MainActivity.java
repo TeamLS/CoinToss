@@ -1,3 +1,11 @@
+
+
+/**
+* authors : Anastasios Temperekidis(AEM : 2808) , Athanasios Mpollas(AEM : 2796)
+*
+*/
+
+
 package com.example.tasosxak.cointoss;
 
 import android.content.Context;
