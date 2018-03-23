@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public void onDestroy() {
+    public void onStop() {
 
         // Write the new high score to the highScore file
 
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        super.onDestroy();
+        super.onStop();
 
     }
 
@@ -163,13 +163,14 @@ public class MainActivity extends AppCompatActivity {
             animation = new Rotate3dAnimation(coinImage, R.drawable.tails, R.drawable.heads, 0, 180, 0, 0, 0, 0);
         }
         if (stayTheSame) {
-            animation.setRepeatCount(7);
+            animation.setRepeatCount(5); // must be odd (5+1 = 6 flips so the side will stay the same)
         } else {
-            animation.setRepeatCount(8);
+            animation.setRepeatCount(6); // must be even (6+1 = 7 flips so the side will not stay the same)
         }
 
         animation.setDuration(110);
         animation.setInterpolator(new LinearInterpolator());
+
 
 
         coinImage.startAnimation(animation);

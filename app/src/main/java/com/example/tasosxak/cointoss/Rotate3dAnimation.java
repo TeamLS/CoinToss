@@ -81,25 +81,31 @@ public class Rotate3dAnimation extends Animation {
 
         // ----------------- ROTATE ----------------- //
 
+        System.err.println(interpolatedTime);
 
-        if (interpolatedTime >= 0.5f && interpolatedTime < 1f)
-        {
-            imageView.setImageResource(nextDrawable);
+        if (interpolatedTime >= 0.5f) {
+
+
+            if (interpolatedTime == 1f){
+
+                int temp = curDrawable;
+                curDrawable = nextDrawable;
+                nextDrawable = temp;
+
+                numOfRepetition++;
+
+            } else {
+                imageView.setImageResource(nextDrawable);
+            }
+
             xDegrees -= 180f;
 
+        } else if (interpolatedTime == 0) {
 
-        } else if (interpolatedTime == 1f) {
-
-            int temp = curDrawable;
-            curDrawable = nextDrawable;
-            nextDrawable = temp;
-            xDegrees -= 180f;
-
-            numOfRepetition++;
-
-        } else {
             imageView.setImageResource(curDrawable);
+
         }
+
 
         camera.save();
         camera.rotateX(-xDegrees);
