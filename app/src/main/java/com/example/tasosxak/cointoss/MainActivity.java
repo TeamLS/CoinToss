@@ -1,9 +1,10 @@
 package com.example.tasosxak.cointoss;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private int coinSide;
     private int score;
     private int highScore;
-
+    private MediaPlayer mp;
     private int curSide = R.drawable.heads;
 
     private String filename = "highScore";
@@ -90,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
         // Restore all values and images after rotate
 
         if (savedInstanceState != null) {
@@ -116,17 +115,10 @@ public class MainActivity extends AppCompatActivity {
         outState.putCharSequence(HIST, hist.getText());
     }
 
-    private void newHighScore() {
 
 
-        highScore = score;
-        highScoreText.setText(String.valueOf(highScore));
-
-        // Show Toast for New High Score
-
-        String text = getResources().getString(R.string.new_highscore);
-        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
-        toast.show();
+    @Override
+    public void onDestroy() {
 
         // Write the new high score to the highScore file
 
@@ -138,6 +130,21 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        super.onDestroy();
+
+    }
+
+    private void newHighScore() {
+
+
+        highScore = score;
+        highScoreText.setText(String.valueOf(highScore));
+
+        // Show Toast for New High Score
+
+        String text = getResources().getString(R.string.new_highscore);
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_LONG);
+        toast.show();
 
     }
 
@@ -164,11 +171,13 @@ public class MainActivity extends AppCompatActivity {
         animation.setDuration(110);
         animation.setInterpolator(new LinearInterpolator());
 
+
         coinImage.startAnimation(animation);
+
 
         setButtonsEnabled(false);
 
-        return animation.getDuration() * (animation.getRepeatCount()+1);
+        return animation.getDuration() * (animation.getRepeatCount() + 1);
     }
 
     public void flipCoin(View v) {
@@ -176,6 +185,10 @@ public class MainActivity extends AppCompatActivity {
 
         final int buttonId = ((Button) v).getId();
         coinSide = r.nextInt(2);
+
+        stopPlaying();
+        mp = MediaPlayer.create(this, R.raw.coin_flip);
+        mp.start();
 
         if (coinSide == 0) {  // We have Tails
 
@@ -254,5 +267,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void stopPlaying() {
+        if (mp != null) {
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
     }
 }
