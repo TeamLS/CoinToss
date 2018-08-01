@@ -8,7 +8,7 @@
 
 ## Information
 
-A game (written for Android devices, developed using Android Studio) that simulates the coin flip game, in which you guess in which side the coin will land. Heads or tails? Make as many consecutive correct quesses as you can, and you will have a new highscore.
+A game (written for Android devices, developed using Android Studio) that simulates the coin flip game, in which you guess in which side the coin will land. Heads or tails? Make as many consecutive correct guesses as you can, and you will have a new highscore.
 
 For the source code click [here](app/src/main/java/com/example/tasosxak/cointoss).
 
